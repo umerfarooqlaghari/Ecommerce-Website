@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
@@ -23,7 +23,7 @@ interface Message {
   timestamp: Date
 }
 
-export default function ChatBot() {
+function ChatBotContent() {
   const pageContext = useChatContext()
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -392,5 +392,13 @@ export default function ChatBot() {
         )}
       </AnimatePresence>
     </>
+  )
+}
+
+export default function ChatBot() {
+  return (
+    <Suspense fallback={null}>
+      <ChatBotContent />
+    </Suspense>
   )
 }

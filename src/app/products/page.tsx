@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
@@ -29,7 +29,7 @@ interface Category {
   created_at: string
 }
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [products, setProducts] = useState<Product[]>([])
@@ -262,5 +262,21 @@ export default function ProductsPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background py-8">
+        <div className="container">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        </div>
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   )
 }

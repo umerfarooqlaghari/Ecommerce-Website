@@ -13,12 +13,12 @@ export function useChatContext() {
     if (pathname === '/') {
       newContext = 'User is on the home page browsing featured products and categories'
     }
-    
+
     // Products page
     else if (pathname === '/products') {
-      const category = searchParams.get('category')
-      const search = searchParams.get('search')
-      
+      const category = searchParams?.get('category')
+      const search = searchParams?.get('search')
+
       if (category) {
         newContext = `User is browsing products filtered by category ID: ${category}`
       } else if (search) {
